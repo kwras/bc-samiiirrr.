@@ -1,43 +1,32 @@
 const Discord = require("discord.js");
 const client = new Discord.Client();
-
-
-const devs = ['483743143989084161' , '483743143989084161' , '483743143989084161' , '483743143989084161'];
-const adminprefix = "-";
+client.on('ready', () => {
+  client.user.setGame(`E|  .`,'uP');
+  console.log('---------------');
+  console.log(' Bot Is Online')
+  console.log('---------------')
+});
 client.on('message', message => {
-    var argresult = message.content.split(` `).slice(1).join(' ');
-      if (!devs.includes(message.author.id)) return;
-      
-  if (message.content.startsWith(adminprefix + 'ply')) {
-    client.user.setGame(argresult);
-      message.channel.sendMessage(`**:white_check_mark:   ${argresult}**`)
-  } else 
-  if (message.content.startsWith(adminprefix + 'wt')) {
-  client.user.setActivity(argresult, {type:'WATCHING'});
-      message.channel.sendMessage(`**:white_check_mark:   ${argresult}**`)
-  } else 
-  if (message.content.startsWith(adminprefix + 'ls')) {
-  client.user.setActivity(argresult , {type:'LISTENING'});
-      message.channel.sendMessage(`**:white_check_mark:   ${argresult}**`)
-  } else 
-  if (message.content.startsWith(adminprefix + 'st')) {
-    client.user.setGame(argresult, "https://www.twitch.tv/idk");
-      message.channel.sendMessage(`**:white_check_mark:   ${argresult}**`)
-  }
-  });
+   let embed = new Discord.RichEmbed()
 
-  
-  client.on('ready', () => {
-  console.log(`Logged in as ${client.user.tag} !`);
- 
-});
- 
-client.on('guildMemberAdd',async member => {
-  if(member.guild.id !== '501419525661786122') return;
-  setTimeout(function(){
-  member.guild.channels.find(r => r.id === '501420247392190465').send('You`re In  **Energy**  Welcome ..');
-},3000);
-});
-  
+    let args = message.content.split(' ').slice(1).join(' ');
+     if(!message.channel.guild) return;
+if(message.content.split(' ')[0] == '*bc') {
+         message.react("✔️")
+          let embed = new Discord.RichEmbed()
+    .setColor("#FF00FF")
+    .setThumbnail(message.author.avatarURL)   
+                                      .addField('تم الارسال بواسطة :', "<@" + message.author.id + ">")
+                 message.channel.sendEmbed(embed);
+        message.guild.members.forEach(m => {
+            var bc = new Discord.RichEmbed()
+.addField('**● Sender  :**', `*** → ${message.author.username}#${message.author.discriminator}***`)
+            .addField('***● Server  :***', `*** → ${message.guild.name}***`)               
+    .setColor('#ff0000')
+                 .addField('ّ', args)
+            m.send(``,{embed: bc});
+        });
+    }
+})
 
 client.login(process.env.BOT_TOKEN);
